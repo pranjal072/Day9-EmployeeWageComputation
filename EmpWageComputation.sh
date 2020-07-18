@@ -22,8 +22,15 @@ do
 			WorkingHr=0
 			;;
 	esac
+	Hour=$(($Hour+$WorkingHr))
 	Salary=$(( $WorkingHr*$RatePerHr ))
 	TotalSalary=$(($TotalSalary+$Salary))
+	if [ $Hour -ge 100 ]
+	then
+		echo "LIMIT REACHED: Worked for 100 Hours"
+		break
+	fi
 done
+
 
 echo "Salary per month is : $TotalSalary"
