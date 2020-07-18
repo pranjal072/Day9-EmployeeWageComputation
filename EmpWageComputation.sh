@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 function Attendance()
 {
 	fullTime=1
@@ -6,31 +6,31 @@ function Attendance()
 	Attend=$(( RANDOM%3 ))
 	case $Attend in
       $fullTime)
-         echo "Employee is working Full Time"
          Hr=8
          ;;
       $partTime)
-         echo "Employee is working Part Time"
          Hr=4
          ;;
       *)
-         echo "Employee is Absent"
          Hr=0
          ;;
    esac
+	echo $Hr
 
 }
+
+declare -A DictDailyWage
 
 echo "Welcome to Employee Wage Computation Program:"
 RatePerHr=20
 WorkDays=20
-for((i=0; i<$WorkDays; i++))
+
+for((i=1; i<=$WorkDays; i++))
 do
-	Attendance
-	WorkingHr=$Hr
+	WorkingHr=$( Attendance )
 	Hour=$(($Hour+$WorkingHr))
 	Salary=$(( $WorkingHr*$RatePerHr ))
-	arrDailyWage[$i]=$Salary
+	DictDailyWage[Day$i]=$Salary
 	TotalSalary=$(($TotalSalary+$Salary))
 	if [ $Hour -ge 100 ]
 	then
@@ -39,5 +39,9 @@ do
 	fi
 done
 
-echo "Daily Wages were : ${arrDailyWage[@]}"
+for key in ${!DictDailyWage[@]}
+do
+	echo " $key : ${DictDailyWage[$key]}"
+done
+
 echo "Salary per month is : $TotalSalary"
