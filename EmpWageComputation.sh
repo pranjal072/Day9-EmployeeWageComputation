@@ -1,27 +1,33 @@
 #!/bin/bash -x
+function Attendance()
+{
+	fullTime=1
+	partTime=2
+	Attend=$(( RANDOM%3 ))
+	case $Attend in
+      $fullTime)
+         echo "Employee is working Full Time"
+         Hr=8
+         ;;
+      $partTime)
+         echo "Employee is working Part Time"
+         Hr=4
+         ;;
+      *)
+         echo "Employee is Absent"
+         Hr=0
+         ;;
+   esac
+
+}
 
 echo "Welcome to Employee Wage Computation Program:"
-fullTime=1
-partTime=2
 RatePerHr=20
 WorkingDaysPerMonth=20
 for((i=0; i<$WorkingDaysPerMonth; i++))
 do
-	Attendance=$(( RANDOM%3 ))
-	case $Attendance in
-		$fullTime)
-			echo "Employee is working Full Time"
-			WorkingHr=8
-			;;
-		$partTime)
-			echo "Employee is working Part Time"
-			WorkingHr=4
-			;;
-		*)
-			echo "Employee is Absent"
-			WorkingHr=0
-			;;
-	esac
+	Attendance
+	WorkingHr=$Hr
 	Hour=$(($Hour+$WorkingHr))
 	Salary=$(( $WorkingHr*$RatePerHr ))
 	TotalSalary=$(($TotalSalary+$Salary))
