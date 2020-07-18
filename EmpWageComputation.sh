@@ -23,13 +23,14 @@ function Attendance()
 
 echo "Welcome to Employee Wage Computation Program:"
 RatePerHr=20
-WorkingDaysPerMonth=20
-for((i=0; i<$WorkingDaysPerMonth; i++))
+WorkDays=20
+for((i=0; i<$WorkDays; i++))
 do
 	Attendance
 	WorkingHr=$Hr
 	Hour=$(($Hour+$WorkingHr))
 	Salary=$(( $WorkingHr*$RatePerHr ))
+	arrDailyWage[$i]=$Salary
 	TotalSalary=$(($TotalSalary+$Salary))
 	if [ $Hour -ge 100 ]
 	then
@@ -38,5 +39,5 @@ do
 	fi
 done
 
-
+echo "Daily Wages were : ${arrDailyWage[@]}"
 echo "Salary per month is : $TotalSalary"
